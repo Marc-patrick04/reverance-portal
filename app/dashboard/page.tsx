@@ -2,19 +2,26 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
+interface User {
+  id: string
+  name: string
+  email: string
+  role: string
+}
+
 export default function Dashboard() {
-  const [user, setUser] = useState<any>(null)
+  const [user, setUser] = useState<User | null>(null)
   const router = useRouter()
 
   useEffect(() => {
     const token = localStorage.getItem('token')
     const userData = localStorage.getItem('user')
-    
+
     if (!token || !userData) {
       router.push('/login')
       return
     }
-    
+
     setUser(JSON.parse(userData))
   }, [router])
 
@@ -40,7 +47,7 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
-      
+
       <div className="container mx-auto px-4 py-8">
         <div className="bg-white rounded-lg shadow p-6">
           <h2 className="text-xl font-bold mb-4">Dashboard</h2>
